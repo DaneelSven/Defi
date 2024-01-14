@@ -1,0 +1,33 @@
+{
+  "name": "defi",
+  "version": "1.0.0",
+  "description": "Defi",
+  "main": "index.js",
+  "scripts": {
+    "coverage": "npx hardhat coverage",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sven Daneel",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "5.0.0",
+    "ethers": "6.9.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "2.0.2",
+    "@nomicfoundation/hardhat-toolbox": "4.0.0",
+    "@types/chai": "4.3.11",
+    "@types/mocha": "10.0.6",
+    "@types/node": "20.10.0",
+    "chai": "4.3.10",
+    "dotenv": "16.3.1",
+    "eslint": "8.54.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-prettier": "5.0.1",
+    "hardhat": "2.19.1",
+    "prettier": "3.1.0",
+    "solhint": "4.0.0",
+    "ts-node": "10.9.1",
+    "typescript": "5.0.4"
+  }
+}
