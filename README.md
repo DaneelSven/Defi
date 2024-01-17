@@ -10,7 +10,7 @@ Welcome to my collection of DeFi projects! In this repository, you'll find vario
 - MutliSign Contract
 - And more...
 
-Feel free to explore each project's directory for more details and documentation.
+Feel free to explore each contract for more details head towards the documentation folder.
 
 ## Getting Started
 1. Clone this repository.
