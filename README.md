@@ -1,6 +1,6 @@
 # Personal DeFi Projects
 
-Welcome to my collection of DeFi projects! In this repository, you'll find various smart contract implementations written in Solidity, utilizing TypeScript for testing, and Hardhat for development and testing.
+Welcome to my collection of DeFi projects! In this repository, you'll find various smart contract implementations written in Solidity, utilizing Hardhat for testing, and Typescript for development and testing.
 
 ## Projects Included
 - Factory Contracts
