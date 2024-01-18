@@ -4,13 +4,13 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /**
- * @title TokenA
+ * @title TokenB
  * @dev Implementation of the ERC20 TokenA.
- * Initial supply of 1000 TokenA is minted to the deployer.
+ * Initial supply of 1000 TokenB is minted to the deployer.
  */
-contract TokenA is ERC20 {
+contract TokenB is ERC20 {
     constructor() ERC20("TokenB", "B") {
-        _mint(msg.sender, 1000 * 1 ether);
+        _mint(msg.sender, 10000 * 1 ether);
     }
 
     /**

@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/interfaces/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
+
 /** 
  * @title Swapper
  * @dev Implements a simple AMM (Automated Market Maker) for swapping between two ERC20 tokens.
@@ -102,7 +103,7 @@ contract Swapper is ERC20 {
             _liquidity = _liquidityA > _liquidityB ? _liquidityB : _liquidityA;
         }
         _mint(msg.sender, _liquidity);
-        reserveTokenA -= _amountTokenAOptimal;
+        reserveTokenA += _amountTokenAOptimal;
         reserveTokenB += _amountTokenBOptimal;
     }
 

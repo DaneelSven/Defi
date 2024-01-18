@@ -148,7 +148,7 @@ contract MultiSigWallet {
     ) public onlyOwner txExists($txIndex) notExecuted($txIndex) {
         Transaction storage transaction = transactions[$txIndex];
 
-        if (transaction.numConfirmations <= numConfirmationsRequired)
+        if (transaction.numConfirmations < numConfirmationsRequired)
             revert cannotExecuteTx();
 
         transaction.executed = true;

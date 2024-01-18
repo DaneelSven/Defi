@@ -26,10 +26,10 @@ contract MyContract {
 }
 
 /**
- * @title MyContractFactory
+ * @title Factory
  * @dev Factory contract to create new instances of MyContract.
  */
-contract MyContractFactory {
+contract Factory {
     // This array will keep track of all created MyContract instances.
     MyContract[] public deployedContracts;
 
