@@ -151,3 +151,39 @@ The constant product in AMMs, denoted as `resA * resB = K`, ensures the relative
 - **Calculation**: `x = 2000 - (1000 * 2000) / (1000 + 100) ≈ 181.82`
 - **Interpretation**: To remove 100 units of Token A, withdraw approximately 181.82 units of Token B.
 - In this scenario, x is the amount of Token B to be removed when a certain amount of Token A (y) is withdrawn from the pool. The formula ensures the constant product is maintained after the withdrawal.
+
+## Square Root in Automated Market Makers (AMMs)
+
+In Automated Market Makers (AMMs), such as Uniswap, the square root plays a crucial role in determining the number of liquidity tokens minted when users provide liquidity to a pool. This is related to the concept of maintaining a constant product in the pool, where the product of the quantities of two assets remains constant.
+
+### Constant Product Formula
+
+The constant product formula, expressed as:
+
+
+This formula ensures that the product of the reserves of two assets (`Token A` and `Token B`) in the pool remains the same, even as users trade and add liquidity. The square root is introduced to align with this formula.
+
+### Use of Square Root
+
+When liquidity is added to the pool, the square root is applied to the product of the quantities of the two assets being added. The resulting value is then used to determine the number of liquidity tokens to mint. This approach has several implications:
+
+#### Example:
+
+Suppose we have a liquidity pool with `Token A` and `Token B`, and the initial reserves are as follows:
+
+- Reserve of `Token A`: 1000
+- Reserve of `Token B`: 1000
+
+A user wants to add liquidity by depositing 100 `Token A` and 100 `Token B`. The square root of the product (`100 * 100 = 10,000`) is 100. So, the user will receive 100 liquidity tokens.
+
+### Benefits and Disadvantages
+
+Here is a table summarizing the benefits and disadvantages of using the square root in AMMs:
+
+| **Benefits**                               | **Disadvantages**                           |
+|--------------------------------------------|--------------------------------------------|
+| 1. **Balanced Liquidity**: Helps maintain a balanced pool with constant product. | 1. **Non-Linear Relationship**: The relationship between liquidity added and tokens minted is non-linear, which can be confusing for users. |
+| 2. **Proportional Contribution**: Liquidity tokens are proportional to the geometric mean of asset quantities, ensuring a fair representation of both assets. | 2. **Large Providers**: Larger liquidity providers may have a disproportionate impact on the pool's composition. |
+| 3. **Stability**: Contributes to price stability by preventing sudden price swings. | 3. **Complexity**: Can introduce complexity in understanding the relationship between liquidity provided and tokens received. |
+
+In summary, the square root is a fundamental component of the constant product formula in AMMs, contributing to balanced liquidity pools and price stability. However, it also introduces non-linear relationships and potential complexities in liquidity provision for users.
