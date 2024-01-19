@@ -222,7 +222,7 @@ describe("MultiToken", function () {
       });
 
       it("should correctly report supported interfaces", async function () {
-        const { multiToken, owner } = await loadFixture(deploymultiToken);
+        const { multiToken } = await loadFixture(deploymultiToken);
 
         // ERC1155 interface ID https://eips.ethereum.org/EIPS/eip-1155
         const ERC1155InterfaceID = "0xd9b67a26";
