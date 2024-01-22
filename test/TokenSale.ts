@@ -16,7 +16,7 @@ describe("TokenSale", function () {
 
     const TokenSale = await ethers.getContractFactory("TokenSale");
     const tokenSale = await TokenSale.deploy(owner, intialSupply, maxSupply, {
-      value: ethers.parseEther("100"),
+      value: ethers.parseEther("100"),  
     });
     const contractAddress = await tokenSale.getAddress();
     const ownerBalanceWei = await tokenSale.balanceOf(owner);
