@@ -50,21 +50,21 @@ contract Factory {
 
     /**
      * @dev Calculates the address of a contract deployed with CREATE2.
-     * @param $bytecode The bytecode of the contract to be deployed.
-     * @param $salt A unique salt used to create a deterministic address.
+     * @param bytecode The bytecode of the contract to be deployed.
+     * @param salt A unique salt used to create a deterministic address.
      * @return The address of the contract that will be created with the given bytecode and salt.
      * @notice This function does not deploy the contract; it only computes the address.
      */
     function getAddress(
-        bytes memory $bytecode,
-        uint256 $salt
+        bytes memory bytecode,
+        uint256 salt
     ) public view returns (address) {
         bytes32 hash = keccak256(
             abi.encodePacked(
                 bytes1(0xff),
                 address(this),
-                $salt,
-                keccak256($bytecode)
+                salt,
+                keccak256(bytecode)
             )
         );
 
@@ -81,12 +81,12 @@ contract Factory {
 
     /**
      * @dev Generates the bytecode for MyContract with a given owner address.
-     * @param $owner The address to be set as the owner in the deployed contract.
+     * @param owner The address to be set as the owner in the deployed contract.
      * @return The bytecode of MyContract.
      */
-    function getBytecode(address $owner) public pure returns (bytes memory) {
+    function getBytecode(address owner) public pure returns (bytes memory) {
         bytes memory bytecode = type(MyContract).creationCode;
-        return abi.encodePacked(bytecode, abi.encode($owner));
+        return abi.encodePacked(bytecode, abi.encode(owner));
     }
 
     /**

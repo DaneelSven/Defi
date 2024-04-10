@@ -40,22 +40,22 @@ contract TokenSale is ERC20Capped, Pausable, Ownable2Step {
     }
 
     /** @notice Constructor to initialize the token sale
-     * @param $initalOwner The initial owner of the contract
-     * @param $initialSupply The initial supply of tokens
+     * @param initalOwner The initial owner of the contract
+     * @param initialSupply The initial supply of tokens
      */
     constructor(
-        address $initalOwner,
-        uint256 $initialSupply,
-        uint256 $maxSupply
+        address initalOwner,
+        uint256 initialSupply,
+        uint256 maxSupply
     )
         payable
         ERC20("module1", "MOD1")
-        ERC20Capped($maxSupply)
-        Ownable($initalOwner)
+        ERC20Capped(maxSupply)
+        Ownable(initalOwner)
     {
         // Initial supply minted to the contract deployer
-        _mint(msg.sender, $initialSupply * 1e18);        
-        _mint(address(this), $initialSupply * 1e18);
+        _mint(msg.sender, initialSupply * 1e18);        
+        _mint(address(this), initialSupply * 1e18);
 
         saleClosed = _NOT_CLOSED;
     }
@@ -89,20 +89,20 @@ contract TokenSale is ERC20Capped, Pausable, Ownable2Step {
 
     /** 
      * @notice Allows users to sell back tokens in exchange for Ether
-     * @param $tokenAmount The amount of tokens to sell back
+     * @param tokenAmount The amount of tokens to sell back
      */
-    function sellBack(uint256 $tokenAmount) external payable {
-        if ($tokenAmount <= 0) {
+    function sellBack(uint256 tokenAmount) external payable {
+        if (tokenAmount <= 0) {
             revert NoTokens();
         }
 
-        uint256 etherAmount = ($tokenAmount * 1 ether) / tokensPerEther; // calculate the ether to send for the given token amount
+        uint256 etherAmount = (tokenAmount * 1 ether) / tokensPerEther; // calculate the ether to send for the given token amount
 
-        if (balanceOf(address(this)) > $tokenAmount) {
+        if (balanceOf(address(this)) > tokenAmount) {
             // Transfer tokens from user to the contract
-            transfer(address(this), $tokenAmount);
+            transfer(address(this), tokenAmount);
         } else {
-            _mint(msg.sender, $tokenAmount);
+            _mint(msg.sender, tokenAmount);
         }
 
         // Send ether to the user
@@ -111,15 +111,15 @@ contract TokenSale is ERC20Capped, Pausable, Ownable2Step {
 
     /** 
      * @notice Withdraws a specific amount of Ether from the contract
-     * @param $amount The amount of Ether to withdraw
+     * @param amount The amount of Ether to withdraw
      */
-    function withdraw(uint256 $amount) public onlyOwner {
-        if ($amount > address(this).balance) revert LowContractBalance();
+    function withdraw(uint256 amount) public onlyOwner {
+        if (amount > address(this).balance) revert LowContractBalance();
 
-        (bool success, ) = msg.sender.call{value: $amount}("");
+        (bool success, ) = msg.sender.call{value: amount}("");
         if (!success) revert FailedTransaction();
 
-        emit EtherWithdrawn(msg.sender, $amount);
+        emit EtherWithdrawn(msg.sender, amount);
     }
 
     /**

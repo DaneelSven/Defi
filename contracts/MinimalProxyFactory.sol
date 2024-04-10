@@ -37,20 +37,20 @@ contract MinimalProxyFactory {
 
     /**
      * @dev Constructor for the MinimalProxyFactory.
-     * @param $masterContract The address of the MasterContract to which proxies will delegate calls.
+     * @param masterContract The address of the MasterContract to which proxies will delegate calls.
      */
-    constructor(address $masterContract) {
-        masterContract = $masterContract;
+    constructor(address masterContract) {
+        masterContract = masterContract;
     }
 
     /**
      * @notice Deploys a new minimal proxy contract for the MasterContract.
      * @dev This function deploys a minimal proxy (EIP-1167) that delegates calls to a master contract.
      * It uses `CREATE2` for deterministic address generation, allowing for predictable addresses.
-     * @param $salt A unique value used to ensure the deployed address is unique.
+     * @param salt A unique value used to ensure the deployed address is unique.
      * @return The address of the newly deployed minimal proxy contract.
      */
-    function deployProxy(bytes32 $salt) public returns (address) {
+    function deployProxy(bytes32 salt) public returns (address) {
         address clone;
         bytes20 targetBytes = bytes20(masterContract);
 
@@ -60,7 +60,7 @@ contract MinimalProxyFactory {
             mstore(_clone, 0x3d602d80600a3d3981f3363d3d373d3d3d363d73)
             mstore(add(_clone, 0x14), targetBytes)
             mstore(add(_clone, 0x28), 0x5af43d82803e903d91602b57fd5bf3)
-            clone := create2(0, _clone, 0x37, $salt)
+            clone := create2(0, _clone, 0x37, salt)
         }
         deployedProxies.push(clone);
         emit ProxyDeployed(clone);

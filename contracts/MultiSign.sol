@@ -53,18 +53,18 @@ contract MultiSigWallet {
         _;
     }
 
-    modifier txExists(uint $txIndex) {
-        if ($txIndex > transactions.length) revert txNotExists();
+    modifier txExists(uint txIndex) {
+        if (txIndex > transactions.length) revert txNotExists();
         _;
     }
 
-    modifier notExecuted(uint $txIndex) {
-        if (transactions[$txIndex].executed) revert alreadyExecuted();
+    modifier notExecuted(uint txIndex) {
+        if (transactions[txIndex].executed) revert alreadyExecuted();
         _;
     }
 
-    modifier notConfirmed(uint $txIndex) {
-        if (isConfirmed[$txIndex][msg.sender]) revert txAlreadyConfirmed();
+    modifier notConfirmed(uint txIndex) {
+        if (isConfirmed[txIndex][msg.sender]) revert txAlreadyConfirmed();
         _;
     }
 

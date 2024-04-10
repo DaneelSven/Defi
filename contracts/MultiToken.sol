@@ -65,10 +65,10 @@ contract MultiToken is
 
     /**
        @dev Constructor to initialize the contract with initial tokens.
-       @param $initialOwner The initial owner of the contract.
+       @param initialOwner The initial owner of the contract.
     */
-    constructor(address $initialOwner) ERC1155(_baseURI()) Ownable($initialOwner) {
-        _grantRole(DEFAULT_ADMIN_ROLE, $initialOwner);
+    constructor(address initialOwner) ERC1155(_baseURI()) Ownable(initialOwner) {
+        _grantRole(DEFAULT_ADMIN_ROLE, initialOwner);
         _coolDownTimer = block.timestamp;
     }
 
@@ -88,73 +88,73 @@ contract MultiToken is
 
     /**
        @dev Function to mint new tokens.
-       @param $account The address to mint the tokens to.
-       @param $tokenId The ID of the token to mint.
-       @param $data Additional data.
+       @param account The address to mint the tokens to.
+       @param tokenId The ID of the token to mint.
+       @param data Additional data.
     */
     function mint(
-        address $account,
-        uint256 $tokenId,
-        bytes memory $data
-    ) public mintLimit($tokenId) coolDownCheck() pauseCheck {
-        _mint($account, $tokenId, 1, $data);
+        address account,
+        uint256 tokenId,
+        bytes memory data
+    ) public mintLimit(tokenId) coolDownCheck() pauseCheck {
+        _mint(account, tokenId, 1, data);
         _coolDownTimer = block.timestamp;
-        emit Mint($tokenId, 1);
+        emit Mint(tokenId, 1);
     }
 
     /**
        @dev Function to mint new tokens.
-       @param $account The address to mint the tokens to.
-       @param $tokenId The ID of the token to mint.
-       @param $data Additional data.
+       @param account The address to mint the tokens to.
+       @param tokenId The ID of the token to mint.
+       @param data Additional data.
     */
     function mintForge(
-        address $account,
-        uint256 $tokenId,
-        bytes memory $data
+        address account,
+        uint256 tokenId,
+        bytes memory data
     ) external onlyRole(FORGE_ROLE) pauseCheck {
-        _mint($account, $tokenId, 1, $data);
+        _mint(account, tokenId, 1, data);
         _coolDownTimer = block.timestamp;
-        emit Mint($tokenId, 1);
+        emit Mint(tokenId, 1);
     }
 
     /**
        @dev Function to Grant Forging Access.
-       @param $forgingContract The address to grant forging role.
+       @param forgingContract The address to grant forging role.
        This function can only be called by the owner of the contract.
     */
-    function grantForgeRole(address $forgingContract) public onlyOwner {
-        grantRole(FORGE_ROLE, $forgingContract);
-        emit AccessGranted($forgingContract);
+    function grantForgeRole(address forgingContract) public onlyOwner {
+        grantRole(FORGE_ROLE, forgingContract);
+        emit AccessGranted(forgingContract);
     }
 
     /**
        @dev Function to Revoke Forging Access.
-       @param $forgingContract The address to revoke forging role.
+       @param forgingContract The address to revoke forging role.
        This function can only be called by the owner of the contract.
     */
-    function revokeForgeRole(address $forgingContract) public onlyOwner {
-        revokeRole(FORGE_ROLE, $forgingContract);
-        emit AccessRevoked($forgingContract);
+    function revokeForgeRole(address forgingContract) public onlyOwner {
+        revokeRole(FORGE_ROLE, forgingContract);
+        emit AccessRevoked(forgingContract);
     }
 
     /**
       @dev Overrides required by Solidity for combining multiple inherited contracts.
     */
     function _update(
-        address $from,
-        address $to,
-        uint256[] memory $ids,
-        uint256[] memory $values
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory values
     ) internal override(ERC1155, ERC1155Pausable, ERC1155Supply) {
-        super._update($from, $to, $ids, $values);
+        super._update(from, to, ids, values);
     }
 
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 $interfaceId) public view virtual override(ERC1155, AccessControl) returns (bool) {
-        return ERC1155.supportsInterface($interfaceId) || AccessControl.supportsInterface($interfaceId);
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155, AccessControl) returns (bool) {
+        return ERC1155.supportsInterface(interfaceId) || AccessControl.supportsInterface(interfaceId);
     }
     /**
        @dev External function to return the base URI for the tokens.
@@ -167,11 +167,11 @@ contract MultiToken is
 
     /**
        @dev Function to set a new URI for all token types.
-       @param $newuri The new URI to set.
+       @param newuri The new URI to set.
        This function can only be called by the owner of the contract.
     */
-    function setURI(string memory $newuri) public onlyOwner {
-        baseURI = $newuri;
+    function setURI(string memory newuri) public onlyOwner {
+        baseURI = newuri;
         _setURI(baseURI);
     }
 

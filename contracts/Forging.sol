@@ -36,43 +36,43 @@ contract Forging is Ownable {
 
     /**
       @dev Constructor to initialize the Forging contract.
-      @param $initialOwner The initial owner of the contract.
-      @param $nftAddress Address of the NFT contract.
+      @param initialOwner The initial owner of the contract.
+      @param nftAddress Address of the NFT contract.
     */
     constructor(
-        address $initialOwner,
-        address $nftAddress
-    ) Ownable($initialOwner) {
-        nfts = MultiToken($nftAddress);
+        address initialOwner,
+        address nftAddress
+    ) Ownable(initialOwner) {
+        nfts = MultiToken(nftAddress);
     }
 
     /**
       @dev forge Token function to handle the forging logic.
-      @param $mintTokenId Token ID to mint.
+      @param mintTokenId Token ID to mint.
     */
-    function forgeToken(uint256 $mintTokenId) external {
-        if ($mintTokenId == 3) {
+    function forgeToken(uint256 mintTokenId) external {
+        if (mintTokenId == 3) {
             if (
                 nfts.balanceOf(msg.sender, 0) < 1 ||
                 nfts.balanceOf(msg.sender, 1) < 1
             ) revert InsufficientTokensBurn();
             nfts.burn(msg.sender, 0, 1);
             nfts.burn(msg.sender, 1, 1);
-        } else if ($mintTokenId == 4) {
+        } else if (mintTokenId == 4) {
             if (
                 nfts.balanceOf(msg.sender, 1) < 1 ||
                 nfts.balanceOf(msg.sender, 2) < 1
             ) revert InsufficientTokensBurn();
             nfts.burn(msg.sender, 1, 1);
             nfts.burn(msg.sender, 2, 1);
-        } else if ($mintTokenId == 5) {
+        } else if (mintTokenId == 5) {
             if (
                 nfts.balanceOf(msg.sender, 0) < 1 ||
                 nfts.balanceOf(msg.sender, 2) < 1
             ) revert InsufficientTokensBurn();
             nfts.burn(msg.sender, 0, 1);
             nfts.burn(msg.sender, 2, 1);
-        } else if ($mintTokenId == 6) {
+        } else if (mintTokenId == 6) {
             if (
                 nfts.balanceOf(msg.sender, 0) < 1 ||
                 nfts.balanceOf(msg.sender, 1) < 1 ||
@@ -85,29 +85,29 @@ contract Forging is Ownable {
             revert InvalidForgeId();
         }
 
-        nfts.mintForge(msg.sender, $mintTokenId, "0x");
-        emit Forge($mintTokenId, 1);
+        nfts.mintForge(msg.sender, mintTokenId, "0x");
+        emit Forge(mintTokenId, 1);
     }
 
     /**
       @dev Trade function allows users to trade their tokens, This function burns the offer token and mints the requested token in equal amounts.
-      @param $requestedToken Token ID that the user wants to receive.
-      @param $offerToken Token ID that the user offers to trade.
+      @param requestedToken Token ID that the user wants to receive.
+      @param offerToken Token ID that the user offers to trade.
       The function requires that the user has at least the amount of the requested and offer tokens.
       Reverts if the user does not have sufficient tokens to trade.
     */
     function trade(
-        uint256 $requestedToken,
-        uint256 $offerToken
-    ) external TradeCheck($requestedToken, $offerToken) {
+        uint256 requestedToken,
+        uint256 offerToken
+    ) external TradeCheck(requestedToken, offerToken) {
         if (
-            nfts.balanceOf(msg.sender, $offerToken) < 1 ||
-            nfts.balanceOf(msg.sender, $requestedToken) < 1
+            nfts.balanceOf(msg.sender, offerToken) < 1 ||
+            nfts.balanceOf(msg.sender, requestedToken) < 1
         ) revert InsufficientTokensBurn();
 
-        nfts.burn(msg.sender, $offerToken, 1);
-        nfts.mint(msg.sender, $requestedToken, "0x");
-        emit Trade($requestedToken, $offerToken, 1);
+        nfts.burn(msg.sender, offerToken, 1);
+        nfts.mint(msg.sender, requestedToken, "0x");
+        emit Trade(requestedToken, offerToken, 1);
     }
 
     /**
